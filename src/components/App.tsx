@@ -1,9 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 
 const App: React.FC = () => {
   const deck = (require('../deck.json')).cards;
-  const activeCard = deck[Math.floor(Math.random() * 52)];
+  const randomIndex = Math.floor(Math.random() * 52);
+  const activeCard = deck[randomIndex];
+  deck.splice(randomIndex, 1);
+  console.log(deck);
   let suitSymbol = '';
   switch (activeCard.suit) {
     case 'spades':
