@@ -32,7 +32,12 @@ const App: React.FC = () => {
   }
 
   const clickHandler = () => {
-    drawCard();
+    if (deck.length > 0) {
+      drawCard();
+    }
+    else {
+      alert('All cards have been drawn');
+    }
   }
 
   console.log('Player Cards Array:', playerCards);
