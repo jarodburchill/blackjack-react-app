@@ -17,51 +17,47 @@ const App: React.FC = () => {
   }
 
   const drawCard = (player: string) => {
-    const randomIndex = Math.floor(Math.random() * deck.length);
-    const activeCard = deck[randomIndex];
-    deck.splice(randomIndex, 1);
-    console.log('Last Pulled Card:', activeCard);
-    console.log('Remaining Cards:', deck.length);
-    switch (activeCard.suit) {
-      case 'spades':
-        dealCard(player, activeCard.value, '♠');
-        break;
-      case 'diamonds':
-        dealCard(player, activeCard.value, '♦');
-        break;
-      case 'clubs':
-        dealCard(player, activeCard.value, '♣');
-        break;
-      case 'hearts':
-        dealCard(player, activeCard.value, '♥');
-        break;
-      default:
-        break;
-    }
-  }
-
-  const clickHandler = () => {
     if (deck.length > 0) {
-      drawCard('user');
+      const randomIndex = Math.floor(Math.random() * deck.length);
+      const card = deck[randomIndex];
+      deck.splice(randomIndex, 1);
+      console.log('Last Drawn Card:', card);
+      console.log('Remaining Cards:', deck.length);
+      switch (card.suit) {
+        case 'spades':
+          dealCard(player, card.value, '♠');
+          break;
+        case 'diamonds':
+          dealCard(player, card.value, '♦');
+          break;
+        case 'clubs':
+          dealCard(player, card.value, '♣');
+          break;
+        case 'hearts':
+          dealCard(player, card.value, '♥');
+          break;
+        default:
+          break;
+      }
     }
     else {
       alert('All cards have been drawn');
     }
   }
 
-  useEffect(() => {
-    for (let i = 0; i < 2; i++) {
-      drawCard('user');
-    }
-  }, []);
+  // useEffect(() => {
+  //   for (let i = 0; i < 2; i++) {
+  //     drawCard('user');
+  //   }
+  // }, []);
 
   console.log('User Cards Array:', userCards);
   console.log('Dealer Cards Array:', dealerCards);
 
   return (
     <>
-      <button onClick={clickHandler}>Hit</button>
-      <button onClick={clickHandler}>Stand</button>
+      <button onClick={() => drawCard('user')}>User</button>
+      <button onClick={() => drawCard('dealer')}>Dealer</button>
       <div className={styles.handContainer}>
         <h1>Your Hand</h1>
         <div className={styles.cardContainer}>
