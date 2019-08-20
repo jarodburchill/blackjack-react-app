@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Card from './Card';
 
 const App: React.FC = () => {
   const deck = (require('../deck.json')).cards;
@@ -31,19 +32,15 @@ const App: React.FC = () => {
     }
   }
 
-  const clickHandler = (e: any) => {
-    e.preventDefault()
+  const clickHandler = () => {
     drawCard();
   }
 
 
   return (
     <>
-      <div>
-        <h1>{value}</h1>
-        <h1>{suit}</h1>
-      </div>
       <button onClick={clickHandler}>Test</button>
+      <Card value={value} suit={suit} />
     </>
   );
 }

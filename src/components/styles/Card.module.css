@@ -1,0 +1,28 @@
+.black {
+  color: black;
+}
+
+.red {
+  color: red;
+}
+
+.card {
+  width: 125px;
+  height: 250px;
+  margin: 10px;
+  padding: 1em 1.5em;
+  background: rgb(230, 230, 230);
+  border-radius: 15px;
+  box-shadow: 0px 1px 10px rgb(0, 0, 0);
+}
+
+.value {
+  font-size: 400%;
+  margin: 0;
+}
+
+.suit {
+  font-size: 500%;
+  margin: 0;
+  text-align: center;
+}
