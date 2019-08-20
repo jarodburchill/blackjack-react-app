@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles/App.module.css';
 import Card from './Card';
 
 const App: React.FC = () => {
   const deck = (require('../deck.json')).cards;
-  const [playerCards, setPlayerCards]: any[] = useState([]);
+  const [userCards, setUserCards]: any[] = useState([]);
+  const [dealerCards, setDealerCards]: any[] = useState([]);
 
-  const drawCard = () => {
+  const dealCard = (player: string, value: string, suit: string) => {
+    if (player === 'user') {
+      setUserCards([...userCards, { 'value': value, 'suit': suit }]);
+    }
+    else if (player === 'dealer') {
+      setDealerCards([...dealerCards, { 'value': value, 'suit': suit }]);
+    }
+  }
+
+  const drawCard = (player: string) => {
     const randomIndex = Math.floor(Math.random() * deck.length);
     const activeCard = deck[randomIndex];
     deck.splice(randomIndex, 1);
-    console.log('Random Index:', randomIndex);
     console.log('Last Pulled Card:', activeCard);
-    console.log('Remaining Cards:', deck);
+    console.log('Remaining Cards:', deck.length);
     switch (activeCard.suit) {
       case 'spades':
-        setPlayerCards([...playerCards, { 'value': activeCard.value, 'suit': '♠' }]);
+        dealCard(player, activeCard.value, '♠');
         break;
       case 'diamonds':
-        setPlayerCards([...playerCards, { 'value': activeCard.value, 'suit': '♦' }]);
+        dealCard(player, activeCard.value, '♦');
         break;
       case 'clubs':
-        setPlayerCards([...playerCards, { 'value': activeCard.value, 'suit': '♣' }]);
+        dealCard(player, activeCard.value, '♣');
         break;
       case 'hearts':
-        setPlayerCards([...playerCards, { 'value': activeCard.value, 'suit': '♥' }]);
+        dealCard(player, activeCard.value, '♥');
         break;
       default:
         break;
@@ -33,24 +42,45 @@ const App: React.FC = () => {
 
   const clickHandler = () => {
     if (deck.length > 0) {
-      drawCard();
+      drawCard('user');
     }
     else {
       alert('All cards have been drawn');
     }
   }
 
-  console.log('Player Cards Array:', playerCards);
+  useEffect(() => {
+    for (let i = 0; i < 2; i++) {
+      drawCard('user');
+    }
+  }, []);
+
+  console.log('User Cards Array:', userCards);
+  console.log('Dealer Cards Array:', dealerCards);
 
   return (
     <>
-      <button onClick={clickHandler}>Draw a Card</button>
-      <div className={styles.container}>
-        {playerCards.map((card: any, index: number) => {
-          return (
-            <Card key={index} value={card.value} suit={card.suit} />
-          );
-        })}
+      <button onClick={clickHandler}>Hit</button>
+      <button onClick={clickHandler}>Stand</button>
+      <div className={styles.handContainer}>
+        <h1>Your Hand</h1>
+        <div className={styles.cardContainer}>
+          {userCards.map((card: any, index: number) => {
+            return (
+              <Card key={index} value={card.value} suit={card.suit} />
+            );
+          })}
+        </div>
+      </div>
+      <div className={styles.handContainer}>
+        <h1>Dealer's Hand</h1>
+        <div className={styles.cardContainer}>
+          {dealerCards.map((card: any, index: number) => {
+            return (
+              <Card key={index} value={card.value} suit={card.suit} />
+            );
+          })}
+        </div>
       </div>
     </>
   );

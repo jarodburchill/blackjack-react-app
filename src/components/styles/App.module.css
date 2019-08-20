@@ -1,4 +1,13 @@
-.container {
+.handContainer {
+  color: white;
+  min-height: 45vh;
   display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
