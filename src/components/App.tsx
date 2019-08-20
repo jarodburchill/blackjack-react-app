@@ -6,8 +6,6 @@ const App: React.FC = () => {
   const deck = (require('../deck.json')).cards;
   const [playerCards, setPlayerCards]: any[] = useState([]);
 
-  // const playersCards = [{ 'value': '7', 'suit': '♠' }, { 'value': '8', 'suit': '♠' }];
-
   const drawCard = () => {
     const randomIndex = Math.floor(Math.random() * deck.length);
     const activeCard = deck[randomIndex];
@@ -15,7 +13,6 @@ const App: React.FC = () => {
     console.log('Random Index:', randomIndex);
     console.log('Last Pulled Card:', activeCard);
     console.log('Remaining Cards:', deck);
-    console.log('Player Cards Array 0:', playerCards);
     switch (activeCard.suit) {
       case 'spades':
         setPlayerCards([...playerCards, { 'value': activeCard.value, 'suit': '♠' }]);
@@ -32,16 +29,13 @@ const App: React.FC = () => {
       default:
         break;
     }
-    console.log('Player Cards Array 1:', playerCards);
   }
 
   const clickHandler = () => {
     drawCard();
-    console.log('Player Cards Array 2:', playerCards);
   }
 
-  //setPlayerCards(playerCards.push({ 'value': '8', 'suit': '♥' }));
-  console.log('Player Cards Array 3:', playerCards);
+  console.log('Player Cards Array:', playerCards);
 
   return (
     <>
