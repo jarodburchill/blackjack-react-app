@@ -7,24 +7,15 @@ const App: React.FC = () => {
   const [userCards, setUserCards]: any[] = useState([]);
   const [dealerCards, setDealerCards]: any[] = useState([]);
 
-  const dealCard = (player: string, value: string, suit: string) => {
-    switch (player) {
-      case 'user':
-        userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
-        setUserCards([...userCards]);
-        break;
-      case 'dealer':
-        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': false });
-        setDealerCards([...dealerCards]);
-        break;
-      case 'dealer-hidden':
-        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': true });
-        setDealerCards([...dealerCards]);
-        break;
-      default:
-        break;
-    }
-  }
+  console.log('User Cards Array:', userCards);
+  console.log('Dealer Cards Array:', dealerCards);
+
+  useEffect(() => {
+    drawCard('user');
+    drawCard('dealer-hidden');
+    drawCard('user');
+    drawCard('dealer');
+  }, []);
 
   const drawCard = (player: string) => {
     if (deck.length > 0) {
@@ -56,20 +47,40 @@ const App: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    drawCard('user');
-    drawCard('dealer-hidden');
-    drawCard('user');
-    drawCard('dealer');
-  }, []);
+  const dealCard = (player: string, value: string, suit: string) => {
+    switch (player) {
+      case 'user':
+        userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
+        setUserCards([...userCards]);
+        break;
+      case 'dealer':
+        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': false });
+        setDealerCards([...dealerCards]);
+        break;
+      case 'dealer-hidden':
+        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': true });
+        setDealerCards([...dealerCards]);
+        break;
+      default:
+        break;
+    }
+  }
 
-  console.log('User Cards Array:', userCards);
-  console.log('Dealer Cards Array:', dealerCards);
+  const revealCard = () => {
+    dealerCards.filter((obj: any) => {
+      if (obj.hidden === true) {
+        obj.hidden = false;
+      }
+      return obj;
+    });
+    setDealerCards([...dealerCards])
+  }
 
   return (
     <>
       <button onClick={() => drawCard('user')}>User</button>
       <button onClick={() => drawCard('dealer')}>Dealer</button>
+      <button onClick={() => revealCard()}>Reveal</button>
       <div className={styles.handContainer}>
         <h1>Your Hand</h1>
         <div className={styles.cardContainer}>

@@ -20,8 +20,7 @@ const Card: React.FC<CardProps> = ({ value, suit, hidden }) => {
   const getCard = () => {
     if (hidden) {
       return (
-        <div className={styles.hiddenCard}>
-        </div>
+        <div className={styles.hiddenCard} />
       );
     }
     else {
@@ -35,8 +34,6 @@ const Card: React.FC<CardProps> = ({ value, suit, hidden }) => {
       );
     }
   }
-
-
 
   return (
     <>
