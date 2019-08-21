@@ -127,7 +127,7 @@ const App: React.FC = () => {
     const aces = cards.filter((card: any) => {
       return card.value === 'A';
     });
-    aces.forEach((card: any) => {
+    aces.forEach(() => {
       if ((total + 11) > 21) {
         total += 1;
       }
