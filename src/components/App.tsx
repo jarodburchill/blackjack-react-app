@@ -45,11 +45,11 @@ const App: React.FC = () => {
     }
   }
 
-  // useEffect(() => {
-  //   for (let i = 0; i < 2; i++) {
-  //     drawCard('user');
-  //   }
-  // }, []);
+  useEffect(() => {
+    for (let i = 0; i < 2; i++) {
+      drawCard('user');
+    }
+  }, []);
 
   console.log('User Cards Array:', userCards);
   console.log('Dealer Cards Array:', dealerCards);
