@@ -4,9 +4,10 @@ import styles from './styles/Card.module.css';
 type CardProps = {
   value: string;
   suit: string;
+  hidden: boolean;
 };
 
-const Card: React.FC<CardProps> = ({ value, suit }) => {
+const Card: React.FC<CardProps> = ({ value, suit, hidden }) => {
   const getColor = () => {
     if (suit === '♠' || suit === '♣') {
       return styles.black;
@@ -16,13 +17,31 @@ const Card: React.FC<CardProps> = ({ value, suit }) => {
     }
   }
 
+  const getCard = () => {
+    if (hidden) {
+      return (
+        <div className={styles.hiddenCard}>
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className={styles.card}>
+          <div className={getColor()}>
+            <h1 className={styles.value}>{value}</h1>
+            <h1 className={styles.suit}>{suit}</h1>
+          </div>
+        </div>
+      );
+    }
+  }
+
+
+
   return (
-    <div className={getColor()}>
-      <div className={styles.card}>
-        <h1 className={styles.value}>{value}</h1>
-        <h1 className={styles.suit}>{suit}</h1>
-      </div>
-    </div>
+    <>
+      {getCard()}
+    </>
   );
 }
 

@@ -8,13 +8,21 @@ const App: React.FC = () => {
   const [dealerCards, setDealerCards]: any[] = useState([]);
 
   const dealCard = (player: string, value: string, suit: string) => {
-    if (player === 'user') {
-      userCards.push({ 'value': value, 'suit': suit });
-      setUserCards([...userCards]);
-    }
-    else if (player === 'dealer') {
-      dealerCards.push({ 'value': value, 'suit': suit });
-      setDealerCards([...dealerCards]);
+    switch (player) {
+      case 'user':
+        userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
+        setUserCards([...userCards]);
+        break;
+      case 'dealer':
+        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': false });
+        setDealerCards([...dealerCards]);
+        break;
+      case 'dealer-hidden':
+        dealerCards.push({ 'value': value, 'suit': suit, 'hidden': true });
+        setDealerCards([...dealerCards]);
+        break;
+      default:
+        break;
     }
   }
 
@@ -49,9 +57,9 @@ const App: React.FC = () => {
   }
 
   useEffect(() => {
-    for (let i = 0; i < 2; i++) {
-      drawCard('user');
-    }
+    drawCard('user');
+    drawCard('dealer-hidden');
+    drawCard('user');
     drawCard('dealer');
   }, []);
 
@@ -67,7 +75,7 @@ const App: React.FC = () => {
         <div className={styles.cardContainer}>
           {userCards.map((card: any, index: number) => {
             return (
-              <Card key={index} value={card.value} suit={card.suit} />
+              <Card key={index} value={card.value} suit={card.suit} hidden={card.hidden} />
             );
           })}
         </div>
@@ -77,7 +85,7 @@ const App: React.FC = () => {
         <div className={styles.cardContainer}>
           {dealerCards.map((card: any, index: number) => {
             return (
-              <Card key={index} value={card.value} suit={card.suit} />
+              <Card key={index} value={card.value} suit={card.suit} hidden={card.hidden} />
             );
           })}
         </div>
