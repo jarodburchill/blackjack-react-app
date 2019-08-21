@@ -8,6 +8,8 @@ const App: React.FC = () => {
   const [deck, setDeck]: any[] = useState(data);
   const [userCards, setUserCards]: any[] = useState([]);
   const [dealerCards, setDealerCards]: any[] = useState([]);
+  const [userScore, setUserScore] = useState(0);
+  const [dealerScore, setDealerScore] = useState(0);
   const [init, setInit] = useState(true);
 
   //console.log('User Cards Array:', userCards);
@@ -21,7 +23,9 @@ const App: React.FC = () => {
       drawCard('dealer');
       setInit(false);
     }
-  }, [init]);
+    calculate(userCards, setUserScore);
+    calculate(dealerCards, setDealerScore);
+  }, [init, userCards, dealerCards]);
 
   const resetGame = () => {
     console.clear();
@@ -63,8 +67,12 @@ const App: React.FC = () => {
 
   const dealCard = (player: string, value: string, suit: string) => {
     switch (player) {
-      case 'user':
+      case 'test':
         userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
+        setUserCards([...userCards]);
+        break;
+      case 'user':
+        userCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
       case 'dealer':
@@ -90,14 +98,57 @@ const App: React.FC = () => {
     setDealerCards([...dealerCards])
   }
 
+  const calculate = (cards: any[], setScore: any) => {
+    let total = 0;
+    cards.forEach((card: any) => {
+      if (card.hidden === false && card.value !== 'A') {
+        switch (card.value) {
+          case 'K':
+            total += 10;
+            break;
+          case 'Q':
+            total += 10;
+            break;
+          case 'J':
+            total += 10;
+            break;
+          default:
+            total += Number(card.value);
+            break;
+        }
+      }
+    });
+    const aces = cards.filter((card: any) => {
+      return card.value === 'A';
+    });
+    aces.forEach((card: any) => {
+      if ((total + 11) > 21) {
+        total += 1;
+      }
+      else if ((total + 11) === 21) {
+        if (aces.length > 1) {
+          total += 1
+        }
+        else {
+          total += 11
+        }
+      }
+      else {
+        total += 11;
+      }
+    });
+    setScore(total);
+  }
+
   return (
     <>
-      <button onClick={() => drawCard('user')}>User</button>
+      <button onClick={() => drawCard('user')}>Hit</button>
       <button onClick={() => drawCard('dealer')}>Dealer</button>
+      <button onClick={() => drawCard('test')}>Test</button>
       <button onClick={() => revealCard()}>Reveal</button>
       <button onClick={() => resetGame()}>Reset</button>
-      <Hand title={'Your Hand'} cards={userCards} />
-      <Hand title={'Dealer\'s Hand'} cards={dealerCards} />
+      <Hand title={`Your Hand (${userScore})`} cards={userCards} />
+      <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
     </>
   );
 }
