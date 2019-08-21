@@ -73,11 +73,11 @@ const App: React.FC = () => {
 
   const dealCard = (player: string, value: string, suit: string) => {
     switch (player) {
-      case 'test':
+      case 'user':
         userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
         setUserCards([...userCards]);
         break;
-      case 'user':
+      case 'test':
         userCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
@@ -150,7 +150,8 @@ const App: React.FC = () => {
     <>
       <button onClick={() => drawCard('user')}>Hit</button>
       <button onClick={() => drawCard('dealer')}>Dealer</button>
-      <button onClick={() => drawCard('test')}>Test</button>
+      <button onClick={() => drawCard('user')}>Test - Random</button>
+      <button onClick={() => drawCard('test')}>Test - Ace</button>
       <button onClick={() => revealCard()}>Reveal</button>
       <button onClick={() => resetGame()}>Reset</button>
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
