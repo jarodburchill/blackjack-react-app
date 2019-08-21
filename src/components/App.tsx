@@ -1,21 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles/App.module.css';
 import Card from './Card';
+import jsonData from '../deck.json';
 
 const App: React.FC = () => {
-  const [deck, setDeck]: any[] = useState((require('../deck.json')).cards);
+  const data = JSON.parse(JSON.stringify(jsonData.cards))
+  const [deck, setDeck]: any[] = useState(data);
   const [userCards, setUserCards]: any[] = useState([]);
   const [dealerCards, setDealerCards]: any[] = useState([]);
+  const [init, setInit] = useState(true);
 
   console.log('User Cards Array:', userCards);
   console.log('Dealer Cards Array:', dealerCards);
 
   useEffect(() => {
+    if (init) {
+      initGame();
+      setInit(false);
+    }
+  }, [init]);
+
+  const initGame = () => {
     drawCard('user');
     drawCard('dealer-hidden');
     drawCard('user');
     drawCard('dealer');
-  }, []);
+  }
+
+  const resetGame = () => {
+    setDeck(data);
+    setUserCards([]);
+    setDealerCards([]);
+    setInit(true);
+  }
 
   const drawCard = (player: string) => {
     if (deck.length > 0) {
@@ -67,11 +84,11 @@ const App: React.FC = () => {
   }
 
   const revealCard = () => {
-    dealerCards.filter((obj: any) => {
-      if (obj.hidden === true) {
-        obj.hidden = false;
+    dealerCards.filter((card: any) => {
+      if (card.hidden === true) {
+        card.hidden = false;
       }
-      return obj;
+      return card;
     });
     setDealerCards([...dealerCards])
   }
@@ -81,6 +98,7 @@ const App: React.FC = () => {
       <button onClick={() => drawCard('user')}>User</button>
       <button onClick={() => drawCard('dealer')}>Dealer</button>
       <button onClick={() => revealCard()}>Reveal</button>
+      <button onClick={() => resetGame()}>Reset</button>
       <div className={styles.handContainer}>
         <h1>Your Hand</h1>
         <div className={styles.cardContainer}>
