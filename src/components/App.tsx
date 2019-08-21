@@ -23,9 +23,15 @@ const App: React.FC = () => {
       drawCard('dealer');
       setInit(false);
     }
+  }, [init]);
+
+  useEffect(() => {
     calculate(userCards, setUserScore);
+  }, [userCards]);
+
+  useEffect(() => {
     calculate(dealerCards, setDealerScore);
-  }, [init, userCards, dealerCards]);
+  }, [dealerCards]);
 
   const resetGame = () => {
     console.clear();
