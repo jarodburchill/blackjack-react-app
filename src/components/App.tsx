@@ -131,20 +131,22 @@ const App: React.FC = () => {
     const aces = cards.filter((card: any) => {
       return card.value === 'A';
     });
-    aces.forEach(() => {
-      if ((total + 11) > 21) {
-        total += 1;
-      }
-      else if ((total + 11) === 21) {
-        if (aces.length > 1) {
-          total += 1
+    aces.forEach((card: any) => {
+      if (card.hidden === false) {
+        if ((total + 11) > 21) {
+          total += 1;
+        }
+        else if ((total + 11) === 21) {
+          if (aces.length > 1) {
+            total += 1
+          }
+          else {
+            total += 11
+          }
         }
         else {
-          total += 11
+          total += 11;
         }
-      }
-      else {
-        total += 11;
       }
     });
     setScore(total);
