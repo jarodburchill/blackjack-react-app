@@ -3,16 +3,18 @@ import styles from './styles/App.module.css';
 import Card from './Card';
 
 const App: React.FC = () => {
-  const deck = (require('../deck.json')).cards;
+  const [deck, setDeck]: any[] = useState((require('../deck.json')).cards);
   const [userCards, setUserCards]: any[] = useState([]);
   const [dealerCards, setDealerCards]: any[] = useState([]);
 
   const dealCard = (player: string, value: string, suit: string) => {
     if (player === 'user') {
-      setUserCards([...userCards, { 'value': value, 'suit': suit }]);
+      userCards.push({ 'value': value, 'suit': suit });
+      setUserCards([...userCards]);
     }
     else if (player === 'dealer') {
-      setDealerCards([...dealerCards, { 'value': value, 'suit': suit }]);
+      dealerCards.push({ 'value': value, 'suit': suit });
+      setDealerCards([...dealerCards]);
     }
   }
 
@@ -21,6 +23,7 @@ const App: React.FC = () => {
       const randomIndex = Math.floor(Math.random() * deck.length);
       const card = deck[randomIndex];
       deck.splice(randomIndex, 1);
+      setDeck([...deck]);
       console.log('Last Drawn Card:', card);
       console.log('Remaining Cards:', deck.length);
       switch (card.suit) {
@@ -49,6 +52,7 @@ const App: React.FC = () => {
     for (let i = 0; i < 2; i++) {
       drawCard('user');
     }
+    drawCard('dealer');
   }, []);
 
   console.log('User Cards Array:', userCards);
