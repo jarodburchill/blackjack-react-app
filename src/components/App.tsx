@@ -15,19 +15,16 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (init) {
-      initGame();
+      drawCard('user');
+      drawCard('dealer-hidden');
+      drawCard('user');
+      drawCard('dealer');
       setInit(false);
     }
   }, [init]);
 
-  const initGame = () => {
-    drawCard('user');
-    drawCard('dealer-hidden');
-    drawCard('user');
-    drawCard('dealer');
-  }
-
   const resetGame = () => {
+    console.clear();
     setDeck(data);
     setUserCards([]);
     setDealerCards([]);
