@@ -11,6 +11,7 @@ const App: React.FC = () => {
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
   const [init, setInit] = useState(true);
+  const [something, setSomething] = useState(false);
 
   //console.log('User Cards Array:', userCards);
   //console.log('Dealer Cards Array:', dealerCards);
@@ -32,6 +33,15 @@ const App: React.FC = () => {
   useEffect(() => {
     calculate(dealerCards, setDealerScore);
   }, [dealerCards]);
+
+  useEffect(() => {
+    if (something) {
+      drawCard('dealer');      
+    }
+    if (dealerScore > 17) {
+      setSomething(false);
+    }
+  }, [dealerScore]);
 
   const resetGame = () => {
     console.clear();
@@ -152,14 +162,19 @@ const App: React.FC = () => {
     setScore(total);
   }
 
+  const hit = () => {
+    drawCard('user');
+  }
+
+  const stand = () => {
+    revealCard();
+    setSomething(true);
+  }
+
   return (
     <>
-      <button onClick={() => drawCard('user')}>Hit</button>
-      <button onClick={() => drawCard('dealer')}>Dealer</button>
-      <button onClick={() => drawCard('user')}>Test - Random</button>
-      <button onClick={() => drawCard('test-ace')}>Test - Ace</button>
-      <button onClick={() => drawCard('test-king')}>Test - King</button>
-      <button onClick={() => revealCard()}>Reveal</button>
+      <button onClick={() => hit()}>Hit</button>
+      <button onClick={() => stand()}>Stand</button>
       <button onClick={() => resetGame()}>Reset</button>
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
