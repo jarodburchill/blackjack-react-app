@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles/App.module.css';
-import Card from './Card';
+import Hand from './Hand';
 import jsonData from '../deck.json';
 
 const App: React.FC = () => {
@@ -10,8 +10,8 @@ const App: React.FC = () => {
   const [dealerCards, setDealerCards]: any[] = useState([]);
   const [init, setInit] = useState(true);
 
-  console.log('User Cards Array:', userCards);
-  console.log('Dealer Cards Array:', dealerCards);
+  //console.log('User Cards Array:', userCards);
+  //console.log('Dealer Cards Array:', dealerCards);
 
   useEffect(() => {
     if (init) {
@@ -37,7 +37,7 @@ const App: React.FC = () => {
       const card = deck[randomIndex];
       deck.splice(randomIndex, 1);
       setDeck([...deck]);
-      console.log('Last Drawn Card:', card);
+      //console.log('Last Drawn Card:', card);
       console.log('Remaining Cards:', deck.length);
       switch (card.suit) {
         case 'spades':
@@ -96,26 +96,8 @@ const App: React.FC = () => {
       <button onClick={() => drawCard('dealer')}>Dealer</button>
       <button onClick={() => revealCard()}>Reveal</button>
       <button onClick={() => resetGame()}>Reset</button>
-      <div className={styles.handContainer}>
-        <h1>Your Hand</h1>
-        <div className={styles.cardContainer}>
-          {userCards.map((card: any, index: number) => {
-            return (
-              <Card key={index} value={card.value} suit={card.suit} hidden={card.hidden} />
-            );
-          })}
-        </div>
-      </div>
-      <div className={styles.handContainer}>
-        <h1>Dealer's Hand</h1>
-        <div className={styles.cardContainer}>
-          {dealerCards.map((card: any, index: number) => {
-            return (
-              <Card key={index} value={card.value} suit={card.suit} hidden={card.hidden} />
-            );
-          })}
-        </div>
-      </div>
+      <Hand title={'Your Hand'} cards={userCards} />
+      <Hand title={'Dealer\'s Hand'} cards={dealerCards} />
     </>
   );
 }
