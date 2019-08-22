@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Status from './Status';
+import Controls from './Controls';
 import Hand from './Hand';
 import jsonData from '../deck.json';
 
@@ -15,6 +17,7 @@ const App: React.FC = () => {
   const [dealerTurn, setDealerTurn] = useState(false);
 
   const [init, setInit] = useState(true);
+  const [message, setMessage] = useState('Hit or Stand?');
 
   useEffect(() => {
     if (init) {
@@ -58,6 +61,7 @@ const App: React.FC = () => {
     setDeck(data);
     setUserCards([]);
     setDealerCards([]);
+    setMessage('Hit or Stand?');
     setUserTurn(true);
     setInit(true);
   }
@@ -184,26 +188,25 @@ const App: React.FC = () => {
 
   const bust = () => {
     setUserTurn(false);
-    alert('Bust!');
+    setMessage('Bust!');
   }
 
   const checkWin = () => {
     if (userScore > dealerScore || dealerScore > 21) {
-      console.log('You Win!');
+      setMessage('You Win!');
     }
     else if (dealerScore > userScore) {
-      console.log('Dealer Wins!');
+      setMessage('Dealer Wins!');
     }
     else {
-      console.log('Tie!');
+      setMessage('Tie!');
     }
   }
 
   return (
     <>
-      <button onClick={() => hit()} disabled={!userTurn}>Hit</button>
-      <button onClick={() => stand()} disabled={!userTurn}>Stand</button>
-      <button onClick={() => resetGame()}>Reset</button>
+      <Status message={message} />
+      <Controls userTurn={userTurn} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
     </>

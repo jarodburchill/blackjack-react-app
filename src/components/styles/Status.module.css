@@ -1,0 +1,18 @@
+.statusContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.status {
+  width: 80%;
+  height: 10vh;
+  background: black;
+  border: 5px solid white;
+  border-radius: 15px;
+  box-shadow: 0px 1px 10px rgb(0, 0, 0);
+}
+
+.message {
+  color: white;
+  text-align: center;
+}
