@@ -6,16 +6,15 @@ import jsonData from '../deck.json';
 const App: React.FC = () => {
   const data = JSON.parse(JSON.stringify(jsonData.cards))
   const [deck, setDeck]: any[] = useState(data);
-  const [userCards, setUserCards]: any[] = useState([]);
-  const [dealerCards, setDealerCards]: any[] = useState([]);
-  const [userScore, setUserScore] = useState(0);
-  const [dealerScore, setDealerScore] = useState(0);
-  const [userTurn, setUserTurn] = useState(true);
-  const [dealerTurn, setDealerTurn] = useState(false);
-  const [init, setInit] = useState(true);
 
-  //console.log('User Cards Array:', userCards);
-  //console.log('Dealer Cards Array:', dealerCards);
+  const [userCards, setUserCards]: any[] = useState([]);
+  const [userScore, setUserScore] = useState(0);
+
+  const [dealerCards, setDealerCards]: any[] = useState([]);
+  const [dealerScore, setDealerScore] = useState(0);
+  const [dealerTurn, setDealerTurn] = useState(false);
+
+  const [init, setInit] = useState(true);
 
   useEffect(() => {
     if (init) {
@@ -34,6 +33,15 @@ const App: React.FC = () => {
   useEffect(() => {
     calculate(dealerCards, setDealerScore);
   }, [dealerCards]);
+
+  useEffect(() => {
+    if (userScore === 21) {
+      stand();
+    }
+    else if (userScore > 21) {
+      alert('Bust!');
+    }
+  }, [userScore]);
 
   useEffect(() => {
     if (dealerScore >= 17) {
