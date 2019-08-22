@@ -9,6 +9,7 @@ const App: React.FC = () => {
 
   const [userCards, setUserCards]: any[] = useState([]);
   const [userScore, setUserScore] = useState(0);
+  const [userTurn, setUserTurn] = useState(true);
 
   const [dealerCards, setDealerCards]: any[] = useState([]);
   const [dealerScore, setDealerScore] = useState(0);
@@ -39,7 +40,7 @@ const App: React.FC = () => {
       stand();
     }
     else if (userScore > 21) {
-      alert('Bust!');
+      bust();
     }
   }, [userScore]);
 
@@ -57,6 +58,7 @@ const App: React.FC = () => {
     setDeck(data);
     setUserCards([]);
     setDealerCards([]);
+    setUserTurn(true);
     setInit(true);
   }
 
@@ -66,7 +68,6 @@ const App: React.FC = () => {
       const card = deck[randomIndex];
       deck.splice(randomIndex, 1);
       setDeck([...deck]);
-      //console.log('Last Drawn Card:', card);
       console.log('Remaining Cards:', deck.length);
       switch (card.suit) {
         case 'spades':
@@ -176,14 +177,20 @@ const App: React.FC = () => {
   }
 
   const stand = () => {
+    setUserTurn(false);
     revealCard();
     setDealerTurn(true);
   }
 
+  const bust = () => {
+    setUserTurn(false);
+    alert('Bust!');
+  }
+
   return (
     <>
-      <button onClick={() => hit()}>Hit</button>
-      <button onClick={() => stand()}>Stand</button>
+      <button disabled={!userTurn} onClick={() => hit()}>Hit</button>
+      <button disabled={!userTurn} onClick={() => stand()}>Stand</button>
       <button onClick={() => resetGame()}>Reset</button>
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
