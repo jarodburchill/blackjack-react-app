@@ -3,7 +3,6 @@
   min-height: 40vh;
   display: flex;
   align-items: center;
-  text-align: center;
   flex-direction: column;
 }
 
@@ -11,4 +10,8 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.title {
+  text-align: center;
 }

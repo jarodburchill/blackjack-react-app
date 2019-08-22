@@ -11,9 +11,9 @@ type ControlsProps = {
 const Controls: React.FC<ControlsProps> = ({ userTurn, hitEvent, standEvent, resetEvent }) => {
   return (
     <div className={styles.controlsContainer}>
-      <button onClick={() => hitEvent()} disabled={!userTurn}>Hit</button>
-      <button onClick={() => standEvent()} disabled={!userTurn}>Stand</button>
-      <button onClick={() => resetEvent()}>Reset</button>
+      <button onClick={() => hitEvent()} disabled={!userTurn} className={styles.button}>Hit</button>
+      <button onClick={() => standEvent()} disabled={!userTurn} className={styles.button}>Stand</button>
+      <button onClick={() => resetEvent()} className={styles.button}>Reset</button>
     </div>
   );
 }
