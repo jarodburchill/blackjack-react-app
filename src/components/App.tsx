@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styles from './styles/App.module.css';
 import Hand from './Hand';
 import jsonData from '../deck.json';
 
@@ -189,8 +188,8 @@ const App: React.FC = () => {
 
   return (
     <>
-      <button disabled={!userTurn} onClick={() => hit()}>Hit</button>
-      <button disabled={!userTurn} onClick={() => stand()}>Stand</button>
+      <button onClick={() => hit()} disabled={!userTurn}>Hit</button>
+      <button onClick={() => stand()} disabled={!userTurn}>Stand</button>
       <button onClick={() => resetGame()}>Reset</button>
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
