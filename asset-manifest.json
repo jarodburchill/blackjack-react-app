@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/BlackjackReactApp/static/css/main.16bc9b8f.chunk.css",
+    "main.js": "/BlackjackReactApp/static/js/main.3bb89588.chunk.js",
+    "main.js.map": "/BlackjackReactApp/static/js/main.3bb89588.chunk.js.map",
+    "runtime~main.js": "/BlackjackReactApp/static/js/runtime~main.a6fd947a.js",
+    "runtime~main.js.map": "/BlackjackReactApp/static/js/runtime~main.a6fd947a.js.map",
+    "static/js/2.0ed9fcaf.chunk.js": "/BlackjackReactApp/static/js/2.0ed9fcaf.chunk.js",
+    "static/js/2.0ed9fcaf.chunk.js.map": "/BlackjackReactApp/static/js/2.0ed9fcaf.chunk.js.map",
+    "index.html": "/BlackjackReactApp/index.html",
+    "precache-manifest.bfe339ef3f55ebefb4a25a8925ded976.js": "/BlackjackReactApp/precache-manifest.bfe339ef3f55ebefb4a25a8925ded976.js",
+    "service-worker.js": "/BlackjackReactApp/service-worker.js",
+    "static/css/main.16bc9b8f.chunk.css.map": "/BlackjackReactApp/static/css/main.16bc9b8f.chunk.css.map"
+  }
+}
