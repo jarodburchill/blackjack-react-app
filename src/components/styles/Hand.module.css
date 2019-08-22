@@ -1,9 +1,9 @@
 .handContainer {
   color: white;
-  min-height: 40vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 0.5em
 }
 
 .cardContainer {
