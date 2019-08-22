@@ -46,6 +46,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (dealerScore >= 17) {
       setDealerTurn(false);
+      checkWin();
     }
     else if (dealerTurn) {
       drawCard('dealer');
@@ -184,6 +185,18 @@ const App: React.FC = () => {
   const bust = () => {
     setUserTurn(false);
     alert('Bust!');
+  }
+
+  const checkWin = () => {
+    if (userScore > dealerScore || dealerScore > 21) {
+      console.log('You Win!');
+    }
+    else if (dealerScore > userScore) {
+      console.log('Dealer Wins!');
+    }
+    else {
+      console.log('Tie!');
+    }
   }
 
   return (
