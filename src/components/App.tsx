@@ -10,8 +10,8 @@ const App: React.FC = () => {
   const [dealerCards, setDealerCards]: any[] = useState([]);
   const [userScore, setUserScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
+  const [dealerTurn, setDealerTurn] = useState(false);
   const [init, setInit] = useState(true);
-  const [something, setSomething] = useState(false);
 
   //console.log('User Cards Array:', userCards);
   //console.log('Dealer Cards Array:', dealerCards);
@@ -35,13 +35,16 @@ const App: React.FC = () => {
   }, [dealerCards]);
 
   useEffect(() => {
-    if (something) {
-      drawCard('dealer');      
-    }
     if (dealerScore > 17) {
-      setSomething(false);
+      setDealerTurn(false);
     }
   }, [dealerScore]);
+
+  useEffect(() => {
+    if (dealerTurn) {
+      drawCard('dealer');
+    }
+  }, [dealerTurn])
 
   const resetGame = () => {
     console.clear();
@@ -168,7 +171,7 @@ const App: React.FC = () => {
 
   const stand = () => {
     revealCard();
-    setSomething(true);
+    setDealerTurn(true);
   }
 
   return (
