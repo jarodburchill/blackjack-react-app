@@ -61,15 +61,15 @@
 
 @media screen and (max-width: 600px) {
   .card {
-    width: 30px;
+    width: 45px;
     height: 90px;
-    padding: 0.5em 1em;
+    padding: 0.5em;
   }
 
   .hiddenCard {
-    width: 26px;
+    width: 41px;
     height: 86px;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     border: 2px solid white;
   }
 
