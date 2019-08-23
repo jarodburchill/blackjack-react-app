@@ -18,10 +18,12 @@
   text-align: center;
 }
 
-.button:hover {
-  color: black;
-  background: white;
-  border: 5px solid black;
+@media (hover: hover) {
+  .button:hover {
+    color: black;
+    background: white;
+    border: 5px solid black;
+  }
 }
 
 .button:disabled {
