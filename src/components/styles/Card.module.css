@@ -1,6 +1,6 @@
 .card {
-  width: 125px;
-  height: 275px;
+  width: 120px;
+  height: 260px;
   margin: 10px;
   padding: 0.5em 1.5em;
   background: rgb(230, 230, 230);
@@ -9,8 +9,8 @@
 }
 
 .hiddenCard {
-  width: 115px;
-  height: 265px;
+  width: 110px;
+  height: 250px;
   margin: 10px;
   padding: 0.5em 1.5em;
   background-image: linear-gradient(176deg, #ffffff 8.33%, #ff0000 8.33%, #ff0000 50%, #ffffff 50%, #ffffff 58.33%, #ff0000 58.33%, #ff0000 100%);
@@ -41,12 +41,12 @@
 
 @media screen and (max-width: 992px) {
   .card {
-    width: 60px;
+    width: 70px;
     height: 180px;
   }
 
   .hiddenCard {
-    width: 50px;
+    width: 60px;
     height: 170px;
   }
 
