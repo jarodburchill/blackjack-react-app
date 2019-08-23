@@ -20,13 +20,18 @@ const App: React.FC = () => {
 
   const [init, setInit] = useState(true);
   const [message, setMessage] = useState('Hit or Stand?');
+  const [buttonState, setButtonState] = useState({
+    hitDisabled: false,
+    standDisabled: false,
+    resetDisabled: false
+  })
 
   useEffect(() => {
     if (init) {
-      drawCard('test-u1');
-      drawCard('test-d1');
-      drawCard('test-u2');
-      drawCard('test-d2');
+      drawCard('user');
+      drawCard('dealer-hidden');
+      drawCard('user');
+      drawCard('dealer');
       setInit(false);
     }
   }, [init]);
@@ -44,7 +49,8 @@ const App: React.FC = () => {
   useEffect(() => {
     if (userTurn) {
       if (userScore === 21) {
-        stand();
+        buttonState.hitDisabled = true;
+        setButtonState({ ...buttonState });
       }
       else if (userScore > 21) {
         bust();
@@ -79,6 +85,11 @@ const App: React.FC = () => {
 
     setInit(true);
     setMessage('Hit or Stand?');
+    setButtonState({
+      hitDisabled: false,
+      standDisabled: false,
+      resetDisabled: false
+    });
   }
 
   const drawCard = (player: string) => {
@@ -129,15 +140,15 @@ const App: React.FC = () => {
         setUserCards([...userCards]);
         break;
       case 'test-u2':
-        userCards.push({ 'value': '10', 'suit': '♠', 'hidden': false });
+        userCards.push({ 'value': 'K', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
       case 'test-d1':
-        dealerCards.push({ 'value': '2', 'suit': '♠', 'hidden': true });
+        dealerCards.push({ 'value': 'A', 'suit': '♠', 'hidden': true });
         setUserCards([...userCards]);
         break;
       case 'test-d2':
-        dealerCards.push({ 'value': '2', 'suit': '♠', 'hidden': false });
+        dealerCards.push({ 'value': '5', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
       default:
@@ -205,12 +216,18 @@ const App: React.FC = () => {
 
   const stand = () => {
     setUserTurn(false);
+    buttonState.hitDisabled = true;
+    buttonState.standDisabled = true;
+    setButtonState({ ...buttonState });
     setDealerTurn(true);
     revealCard();
   }
 
   const bust = () => {
     setUserTurn(false);
+    buttonState.hitDisabled = true;
+    buttonState.standDisabled = true;
+    setButtonState({ ...buttonState });
     setMessage('Bust!');
   }
 
@@ -230,9 +247,9 @@ const App: React.FC = () => {
   return (
     <>
       <Status message={message} />
-      <Controls userTurn={userTurn} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
-      <Hand title={`Your Hand (${userScore})`} cards={userCards} />
+      <Controls buttonState={buttonState} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
+      <Hand title={`Your Hand (${userScore})`} cards={userCards} />
     </>
   );
 }
