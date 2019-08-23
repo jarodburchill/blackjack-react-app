@@ -33,30 +33,35 @@ const App: React.FC = () => {
 
   useEffect(() => {
     calculate(userCards, setUserScore);
+    setUserCount(userCount + 1);
   }, [userCards]);
 
   useEffect(() => {
     calculate(dealerCards, setDealerScore);
+    setDealerCount(dealerCount + 1);
   }, [dealerCards]);
 
   useEffect(() => {
-    if (userScore === 21) {
-      stand();
+    if (userTurn) {
+      if (userScore === 21) {
+        stand();
+      }
+      else if (userScore > 21) {
+        bust();
+      }
     }
-    else if (userScore > 21) {
-      bust();
-    }
-  }, [userScore]);
+  }, [userCount]);
 
   useEffect(() => {
-    if (dealerScore >= 17) {
-      setDealerTurn(false);
-      checkWin();
+    if (dealerTurn) {
+      if (dealerScore >= 17) {
+        checkWin();
+      }
+      else {
+        drawCard('dealer');
+      }
     }
-    else if (dealerTurn) {
-      drawCard('dealer');
-    }
-  }, [dealerScore]);
+  }, [dealerCount]);
 
   const resetGame = () => {
     console.clear();
@@ -64,10 +69,12 @@ const App: React.FC = () => {
 
     setUserCards([]);
     setUserScore(0);
+    setUserCount(0);
     setUserTurn(true);
 
     setDealerCards([]);
     setDealerScore(0);
+    setDealerCount(0);
     setDealerTurn(false);
 
     setInit(true);
@@ -130,7 +137,7 @@ const App: React.FC = () => {
         setUserCards([...userCards]);
         break;
       case 'test-d2':
-        dealerCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
+        dealerCards.push({ 'value': '2', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
       default:
@@ -198,8 +205,8 @@ const App: React.FC = () => {
 
   const stand = () => {
     setUserTurn(false);
-    revealCard();
     setDealerTurn(true);
+    revealCard();
   }
 
   const bust = () => {
@@ -208,6 +215,7 @@ const App: React.FC = () => {
   }
 
   const checkWin = () => {
+    setDealerTurn(false);
     if (userScore > dealerScore || dealerScore > 21) {
       setMessage('You Win!');
     }
