@@ -23,7 +23,7 @@ const App: React.FC = () => {
   const [buttonState, setButtonState] = useState({
     hitDisabled: false,
     standDisabled: false,
-    resetDisabled: false
+    resetDisabled: true
   })
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const App: React.FC = () => {
     setButtonState({
       hitDisabled: false,
       standDisabled: false,
-      resetDisabled: false
+      resetDisabled: true
     });
   }
 
@@ -218,6 +218,7 @@ const App: React.FC = () => {
     setUserTurn(false);
     buttonState.hitDisabled = true;
     buttonState.standDisabled = true;
+    buttonState.resetDisabled = false;
     setButtonState({ ...buttonState });
     setDealerTurn(true);
     revealCard();
@@ -227,6 +228,7 @@ const App: React.FC = () => {
     setUserTurn(false);
     buttonState.hitDisabled = true;
     buttonState.standDisabled = true;
+    buttonState.resetDisabled = false;
     setButtonState({ ...buttonState });
     setMessage('Bust!');
   }
