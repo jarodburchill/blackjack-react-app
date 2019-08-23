@@ -109,12 +109,20 @@ const App: React.FC = () => {
         dealerCards.push({ 'value': value, 'suit': suit, 'hidden': true });
         setDealerCards([...dealerCards]);
         break;
-      case 'test-ace':
+      case 'test-u1':
         userCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
-      case 'test-king':
-        userCards.push({ 'value': 'K', 'suit': '♠', 'hidden': false });
+      case 'test-u2':
+        userCards.push({ 'value': '10', 'suit': '♠', 'hidden': false });
+        setUserCards([...userCards]);
+        break;
+      case 'test-d1':
+        dealerCards.push({ 'value': '2', 'suit': '♠', 'hidden': true });
+        setUserCards([...userCards]);
+        break;
+      case 'test-d2':
+        dealerCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
         setUserCards([...userCards]);
         break;
       default:
