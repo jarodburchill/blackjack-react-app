@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "82e9731170f6c03d1af5b8fbc571e8d2",
+    "revision": "b4620b65e46ea3e555966137463c8a24",
     "url": "/BlackjackReactApp/index.html"
   },
   {
