@@ -19,7 +19,7 @@ const Controls: React.FC<ControlsProps> = ({ gameState, buttonState, betEvent, h
             <p>Amount:</p>
             <input type="text" />
           </div>
-          <button onClick={() => betEvent()} className={styles.button}>Bet</button>
+          <button onClick={() => betEvent(5)} className={styles.button}>Bet</button>
         </div>
       );
     }

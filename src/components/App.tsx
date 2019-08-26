@@ -49,10 +49,7 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    if (gameState === GameState.bet) {
-
-    }
-    else if (gameState === GameState.init) {
+    if (gameState === GameState.init) {
       drawCard(Deal.user);
       drawCard(Deal.hidden);
       drawCard(Deal.user);
@@ -115,7 +112,9 @@ const App: React.FC = () => {
     });
   }
 
-  const placeBet = () => {
+  const placeBet = (amount: number) => {
+    setBet(amount);
+    setBalance(balance - amount);
     setGameState(GameState.init);
   }
 
@@ -244,12 +243,14 @@ const App: React.FC = () => {
 
   const checkWin = () => {
     if (userScore > dealerScore || dealerScore > 21) {
+      setBalance(balance + (bet * 2));
       setMessage(Message.userWin);
     }
     else if (dealerScore > userScore) {
       setMessage(Message.dealerWin);
     }
     else {
+      setBalance(balance + bet);
       setMessage(Message.tie);
     }
   }
