@@ -11,6 +11,20 @@ const App: React.FC = () => {
     dealerTurn
   }
 
+  enum Deal {
+    user,
+    dealer,
+    hidden
+  }
+
+  enum Message {
+    default = 'Hit or Stand?',
+    bust = 'Bust!',
+    userWin = 'You Win!',
+    dealerWin = 'Dealer Wins!',
+    tie = 'Tie!'
+  }
+
   const data = JSON.parse(JSON.stringify(jsonData.cards));
   const [deck, setDeck]: any[] = useState(data);
 
@@ -23,7 +37,7 @@ const App: React.FC = () => {
   const [dealerCount, setDealerCount] = useState(0);
 
   const [gameState, setGameState] = useState(GameState.init);
-  const [message, setMessage] = useState('Hit or Stand?');
+  const [message, setMessage] = useState(Message.default);
   const [buttonState, setButtonState] = useState({
     hitDisabled: false,
     standDisabled: false,
@@ -32,10 +46,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (gameState === GameState.init) {
-      drawCard('user');
-      drawCard('dealer-hidden');
-      drawCard('user');
-      drawCard('dealer');
+      drawCard(Deal.user);
+      drawCard(Deal.hidden);
+      drawCard(Deal.user);
+      drawCard(Deal.dealer);
       setGameState(GameState.userTurn);
     }
   }, [gameState]);
@@ -68,7 +82,7 @@ const App: React.FC = () => {
         checkWin();
       }
       else {
-        drawCard('dealer');
+        drawCard(Deal.dealer);
       }
     }
   }, [dealerCount]);
@@ -86,7 +100,7 @@ const App: React.FC = () => {
     setDealerCount(0);
 
     setGameState(GameState.init);
-    setMessage('Hit or Stand?');
+    setMessage(Message.default);
     setButtonState({
       hitDisabled: false,
       standDisabled: false,
@@ -94,7 +108,7 @@ const App: React.FC = () => {
     });
   }
 
-  const drawCard = (player: string) => {
+  const drawCard = (player: Deal) => {
     if (deck.length > 0) {
       const randomIndex = Math.floor(Math.random() * deck.length);
       const card = deck[randomIndex];
@@ -123,36 +137,36 @@ const App: React.FC = () => {
     }
   }
 
-  const dealCard = (player: string, value: string, suit: string) => {
+  const dealCard = (player: Deal, value: string, suit: string) => {
     switch (player) {
-      case 'user':
+      case Deal.user:
         userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
         setUserCards([...userCards]);
         break;
-      case 'dealer':
+      case Deal.dealer:
         dealerCards.push({ 'value': value, 'suit': suit, 'hidden': false });
         setDealerCards([...dealerCards]);
         break;
-      case 'dealer-hidden':
+      case Deal.hidden:
         dealerCards.push({ 'value': value, 'suit': suit, 'hidden': true });
         setDealerCards([...dealerCards]);
         break;
-      case 'test-u1':
-        userCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
-        setUserCards([...userCards]);
-        break;
-      case 'test-u2':
-        userCards.push({ 'value': 'K', 'suit': '♠', 'hidden': false });
-        setUserCards([...userCards]);
-        break;
-      case 'test-d1':
-        dealerCards.push({ 'value': 'A', 'suit': '♠', 'hidden': true });
-        setUserCards([...userCards]);
-        break;
-      case 'test-d2':
-        dealerCards.push({ 'value': '5', 'suit': '♠', 'hidden': false });
-        setUserCards([...userCards]);
-        break;
+      // case 'test-u1':
+      //   userCards.push({ 'value': 'A', 'suit': '♠', 'hidden': false });
+      //   setUserCards([...userCards]);
+      //   break;
+      // case 'test-u2':
+      //   userCards.push({ 'value': 'K', 'suit': '♠', 'hidden': false });
+      //   setUserCards([...userCards]);
+      //   break;
+      // case 'test-d1':
+      //   dealerCards.push({ 'value': 'A', 'suit': '♠', 'hidden': true });
+      //   setUserCards([...userCards]);
+      //   break;
+      // case 'test-d2':
+      //   dealerCards.push({ 'value': '5', 'suit': '♠', 'hidden': false });
+      //   setUserCards([...userCards]);
+      //   break;
       default:
         break;
     }
@@ -213,7 +227,7 @@ const App: React.FC = () => {
   }
 
   const hit = () => {
-    drawCard('user');
+    drawCard(Deal.user);
   }
 
   const stand = () => {
@@ -230,18 +244,18 @@ const App: React.FC = () => {
     buttonState.standDisabled = true;
     buttonState.resetDisabled = false;
     setButtonState({ ...buttonState });
-    setMessage('Bust!');
+    setMessage(Message.bust);
   }
 
   const checkWin = () => {
     if (userScore > dealerScore || dealerScore > 21) {
-      setMessage('You Win!');
+      setMessage(Message.userWin);
     }
     else if (dealerScore > userScore) {
-      setMessage('Dealer Wins!');
+      setMessage(Message.dealerWin);
     }
     else {
-      setMessage('Tie!');
+      setMessage(Message.tie);
     }
   }
 
