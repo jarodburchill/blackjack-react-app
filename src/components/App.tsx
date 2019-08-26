@@ -108,7 +108,7 @@ const App: React.FC = () => {
     });
   }
 
-  const drawCard = (player: Deal) => {
+  const drawCard = (dealType: Deal) => {
     if (deck.length > 0) {
       const randomIndex = Math.floor(Math.random() * deck.length);
       const card = deck[randomIndex];
@@ -117,16 +117,16 @@ const App: React.FC = () => {
       console.log('Remaining Cards:', deck.length);
       switch (card.suit) {
         case 'spades':
-          dealCard(player, card.value, '♠');
+          dealCard(dealType, card.value, '♠');
           break;
         case 'diamonds':
-          dealCard(player, card.value, '♦');
+          dealCard(dealType, card.value, '♦');
           break;
         case 'clubs':
-          dealCard(player, card.value, '♣');
+          dealCard(dealType, card.value, '♣');
           break;
         case 'hearts':
-          dealCard(player, card.value, '♥');
+          dealCard(dealType, card.value, '♥');
           break;
         default:
           break;
@@ -137,8 +137,8 @@ const App: React.FC = () => {
     }
   }
 
-  const dealCard = (player: Deal, value: string, suit: string) => {
-    switch (player) {
+  const dealCard = (dealType: Deal, value: string, suit: string) => {
+    switch (dealType) {
       case Deal.user:
         userCards.push({ 'value': value, 'suit': suit, 'hidden': false });
         setUserCards([...userCards]);
