@@ -5,36 +5,40 @@ import Hand from './Hand';
 import jsonData from '../deck.json';
 
 const App: React.FC = () => {
-  const data = JSON.parse(JSON.stringify(jsonData.cards))
+  enum GameState {
+    init,
+    userTurn,
+    dealerTurn
+  }
+
+  const data = JSON.parse(JSON.stringify(jsonData.cards));
   const [deck, setDeck]: any[] = useState(data);
 
   const [userCards, setUserCards]: any[] = useState([]);
   const [userScore, setUserScore] = useState(0);
   const [userCount, setUserCount] = useState(0);
-  const [userTurn, setUserTurn] = useState(true);
 
   const [dealerCards, setDealerCards]: any[] = useState([]);
   const [dealerScore, setDealerScore] = useState(0);
   const [dealerCount, setDealerCount] = useState(0);
-  const [dealerTurn, setDealerTurn] = useState(false);
 
-  const [init, setInit] = useState(true);
+  const [gameState, setGameState] = useState(GameState.init);
   const [message, setMessage] = useState('Hit or Stand?');
   const [buttonState, setButtonState] = useState({
     hitDisabled: false,
     standDisabled: false,
     resetDisabled: true
-  })
+  });
 
   useEffect(() => {
-    if (init) {
+    if (gameState === GameState.init) {
       drawCard('user');
       drawCard('dealer-hidden');
       drawCard('user');
       drawCard('dealer');
-      setInit(false);
+      setGameState(GameState.userTurn);
     }
-  }, [init]);
+  }, [gameState]);
 
   useEffect(() => {
     calculate(userCards, setUserScore);
@@ -47,7 +51,7 @@ const App: React.FC = () => {
   }, [dealerCards]);
 
   useEffect(() => {
-    if (userTurn) {
+    if (gameState === GameState.userTurn) {
       if (userScore === 21) {
         buttonState.hitDisabled = true;
         setButtonState({ ...buttonState });
@@ -59,7 +63,7 @@ const App: React.FC = () => {
   }, [userCount]);
 
   useEffect(() => {
-    if (dealerTurn) {
+    if (gameState === GameState.dealerTurn) {
       if (dealerScore >= 17) {
         checkWin();
       }
@@ -76,14 +80,12 @@ const App: React.FC = () => {
     setUserCards([]);
     setUserScore(0);
     setUserCount(0);
-    setUserTurn(true);
 
     setDealerCards([]);
     setDealerScore(0);
     setDealerCount(0);
-    setDealerTurn(false);
 
-    setInit(true);
+    setGameState(GameState.init);
     setMessage('Hit or Stand?');
     setButtonState({
       hitDisabled: false,
@@ -196,10 +198,10 @@ const App: React.FC = () => {
         }
         else if ((total + 11) === 21) {
           if (aces.length > 1) {
-            total += 1
+            total += 1;
           }
           else {
-            total += 11
+            total += 11;
           }
         }
         else {
@@ -215,17 +217,15 @@ const App: React.FC = () => {
   }
 
   const stand = () => {
-    setUserTurn(false);
     buttonState.hitDisabled = true;
     buttonState.standDisabled = true;
     buttonState.resetDisabled = false;
     setButtonState({ ...buttonState });
-    setDealerTurn(true);
+    setGameState(GameState.dealerTurn);
     revealCard();
   }
 
   const bust = () => {
-    setUserTurn(false);
     buttonState.hitDisabled = true;
     buttonState.standDisabled = true;
     buttonState.resetDisabled = false;
@@ -234,7 +234,6 @@ const App: React.FC = () => {
   }
 
   const checkWin = () => {
-    setDealerTurn(false);
     if (userScore > dealerScore || dealerScore > 21) {
       setMessage('You Win!');
     }
