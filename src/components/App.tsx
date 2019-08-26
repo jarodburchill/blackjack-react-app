@@ -250,7 +250,7 @@ const App: React.FC = () => {
       setMessage(Message.dealerWin);
     }
     else {
-      setBalance(balance + bet);
+      setBalance(balance + (bet * 1));
       setMessage(Message.tie);
     }
   }
