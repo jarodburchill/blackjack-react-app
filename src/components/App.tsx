@@ -258,7 +258,14 @@ const App: React.FC = () => {
   return (
     <>
       <Status message={message} balance={balance} />
-      <Controls gameState={gameState} buttonState={buttonState} betEvent={placeBet} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
+      <Controls
+        gameState={gameState}
+        buttonState={buttonState}
+        betEvent={placeBet}
+        hitEvent={hit}
+        standEvent={stand}
+        resetEvent={resetGame}
+      />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
     </>

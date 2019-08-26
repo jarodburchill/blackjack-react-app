@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles/Controls.module.css';
 
 type ControlsProps = {
@@ -11,15 +11,21 @@ type ControlsProps = {
 };
 
 const Controls: React.FC<ControlsProps> = ({ gameState, buttonState, betEvent, hitEvent, standEvent, resetEvent }) => {
+  const [amount, setAmount] = useState(0);
+
+  const amountChange = (e: any) => {
+    setAmount(e.target.value);
+  }
+
   const getControls = () => {
     if (gameState === 0) {
       return (
         <div className={styles.controlsContainer}>
           <div className={styles.betContainer}>
             <p>Amount:</p>
-            <input type="text" />
+            <input type="text" className={styles.input} value={amount} onChange={amountChange} />
           </div>
-          <button onClick={() => betEvent(5)} className={styles.button}>Bet</button>
+          <button onClick={() => betEvent(amount)} className={styles.button}>Bet</button>
         </div>
       );
     }
@@ -33,6 +39,7 @@ const Controls: React.FC<ControlsProps> = ({ gameState, buttonState, betEvent, h
       );
     }
   }
+
   return (
     <>
       {getControls()}
