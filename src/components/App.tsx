@@ -106,7 +106,7 @@ const App: React.FC = () => {
     setDealerScore(0);
     setDealerCount(0);
 
-    setGameState(GameState.init);
+    setGameState(GameState.bet);
     setMessage(Message.default);
     setButtonState({
       hitDisabled: false,
