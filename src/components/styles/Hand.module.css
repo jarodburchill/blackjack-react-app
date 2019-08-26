@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin: 0.5em
+  margin: 0.5em;
 }
 
 .cardContainer {

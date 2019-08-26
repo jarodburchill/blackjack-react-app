@@ -8,9 +8,16 @@ type HandProps = {
 };
 
 const Hand: React.FC<HandProps> = ({ title, cards }) => {
+  const getTitle = () => {
+    if (cards.length > 0) {
+      return (
+        <h1 className={styles.title}>{title}</h1>
+      );
+    }
+  }
   return (
     <div className={styles.handContainer}>
-      <h1 className={styles.title}>{title}</h1>
+      {getTitle()}
       <div className={styles.cardContainer}>
         {cards.map((card: any, index: number) => {
           return (

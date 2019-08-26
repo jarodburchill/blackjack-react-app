@@ -6,6 +6,7 @@ import jsonData from '../deck.json';
 
 const App: React.FC = () => {
   enum GameState {
+    bet,
     init,
     userTurn,
     dealerTurn
@@ -36,7 +37,10 @@ const App: React.FC = () => {
   const [dealerScore, setDealerScore] = useState(0);
   const [dealerCount, setDealerCount] = useState(0);
 
-  const [gameState, setGameState] = useState(GameState.init);
+  const [balance, setBalance] = useState(100);
+  const [bet, setBet] = useState(0);
+
+  const [gameState, setGameState] = useState(GameState.bet);
   const [message, setMessage] = useState(Message.default);
   const [buttonState, setButtonState] = useState({
     hitDisabled: false,
@@ -45,7 +49,10 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    if (gameState === GameState.init) {
+    if (gameState === GameState.bet) {
+
+    }
+    else if (gameState === GameState.init) {
       drawCard(Deal.user);
       drawCard(Deal.hidden);
       drawCard(Deal.user);
@@ -106,6 +113,10 @@ const App: React.FC = () => {
       standDisabled: false,
       resetDisabled: true
     });
+  }
+
+  const placeBet = () => {
+    setGameState(GameState.init);
   }
 
   const drawCard = (dealType: Deal) => {
@@ -261,8 +272,8 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Status message={message} />
-      <Controls buttonState={buttonState} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
+      <Status message={message} balance={balance} />
+      <Controls gameState={gameState} buttonState={buttonState} betEvent={placeBet} hitEvent={hit} standEvent={stand} resetEvent={resetGame} />
       <Hand title={`Dealer's Hand (${dealerScore})`} cards={dealerCards} />
       <Hand title={`Your Hand (${userScore})`} cards={userCards} />
     </>
