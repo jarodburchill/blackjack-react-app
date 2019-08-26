@@ -103,6 +103,8 @@ const App: React.FC = () => {
     setDealerScore(0);
     setDealerCount(0);
 
+    setBet(0);
+
     setGameState(GameState.bet);
     setMessage(Message.default);
     setButtonState({
@@ -259,6 +261,7 @@ const App: React.FC = () => {
     <>
       <Status message={message} balance={balance} />
       <Controls
+        balance={balance}
         gameState={gameState}
         buttonState={buttonState}
         betEvent={placeBet}

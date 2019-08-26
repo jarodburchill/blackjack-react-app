@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './styles/Controls.module.css';
 
 type ControlsProps = {
+  balance: number,
   gameState: number,
   buttonState: any,
   betEvent: any,
@@ -10,8 +11,8 @@ type ControlsProps = {
   resetEvent: any
 };
 
-const Controls: React.FC<ControlsProps> = ({ gameState, buttonState, betEvent, hitEvent, standEvent, resetEvent }) => {
-  const [amount, setAmount] = useState(0);
+const Controls: React.FC<ControlsProps> = ({ balance, gameState, buttonState, betEvent, hitEvent, standEvent, resetEvent }) => {
+  const [amount, setAmount] = useState(10);
 
   const amountChange = (e: any) => {
     setAmount(e.target.value);
@@ -23,7 +24,7 @@ const Controls: React.FC<ControlsProps> = ({ gameState, buttonState, betEvent, h
         <div className={styles.controlsContainer}>
           <div className={styles.betContainer}>
             <p>Amount:</p>
-            <input type="text" className={styles.input} value={amount} onChange={amountChange} />
+            <input type='number' min='10' max={balance} step='10' value={amount} onChange={amountChange} className={styles.input} />
           </div>
           <button onClick={() => betEvent(amount)} className={styles.button}>Bet</button>
         </div>
