@@ -118,7 +118,7 @@ const App: React.FC = () => {
 
   const placeBet = (amount: number) => {
     setBet(amount);
-    setBalance(balance - amount);
+    setBalance(Math.round((balance - amount) * 100) / 100);
     setGameState(GameState.init);
   }
 
@@ -247,14 +247,14 @@ const App: React.FC = () => {
 
   const checkWin = () => {
     if (userScore > dealerScore || dealerScore > 21) {
-      setBalance(balance + (bet * 2));
+      setBalance(Math.round((balance + (bet * 2)) * 100) / 100);
       setMessage(Message.userWin);
     }
     else if (dealerScore > userScore) {
       setMessage(Message.dealerWin);
     }
     else {
-      setBalance(balance + (bet * 1));
+      setBalance(Math.round((balance + (bet * 1)) * 100) / 100);
       setMessage(Message.tie);
     }
   }

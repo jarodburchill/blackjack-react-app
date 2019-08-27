@@ -38,7 +38,7 @@ const Controls: React.FC<ControlsProps> = ({ balance, gameState, buttonState, be
 
   const onBetClick = () => {
     if (validation()) {
-      betEvent(amount);
+      betEvent(Math.round(amount * 100) / 100);
     }
   }
 
