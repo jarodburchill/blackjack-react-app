@@ -24,7 +24,7 @@ const Controls: React.FC<ControlsProps> = ({ balance, gameState, buttonState, be
       setInputStyle(styles.inputError);
       return false;
     }
-    if (amount <= 0) {
+    if (amount < 0.01) {
       setInputStyle(styles.inputError);
       return false;
     }
