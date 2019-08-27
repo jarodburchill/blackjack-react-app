@@ -17,7 +17,7 @@ const Controls: React.FC<ControlsProps> = ({ balance, gameState, buttonState, be
 
   useEffect(() => {
     validation();
-  }, [amount]);
+  }, [amount, balance]);
 
   const validation = () => {
     if (amount > balance) {
