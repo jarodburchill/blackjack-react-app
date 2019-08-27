@@ -45,7 +45,8 @@
   color: red;
 }
 
-.input::-webkit-inner-spin-button {
+.input::-webkit-inner-spin-button, 
+.inputError::-webkit-inner-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
