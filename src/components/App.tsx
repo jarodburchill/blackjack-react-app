@@ -19,7 +19,8 @@ const App: React.FC = () => {
   }
 
   enum Message {
-    default = 'Hit or Stand?',
+    bet = 'Place a Bet!',
+    hitStand = 'Hit or Stand?',
     bust = 'Bust!',
     userWin = 'You Win!',
     dealerWin = 'Dealer Wins!',
@@ -41,7 +42,7 @@ const App: React.FC = () => {
   const [bet, setBet] = useState(0);
 
   const [gameState, setGameState] = useState(GameState.bet);
-  const [message, setMessage] = useState(Message.default);
+  const [message, setMessage] = useState(Message.bet);
   const [buttonState, setButtonState] = useState({
     hitDisabled: false,
     standDisabled: false,
@@ -55,6 +56,7 @@ const App: React.FC = () => {
       drawCard(Deal.user);
       drawCard(Deal.dealer);
       setGameState(GameState.userTurn);
+      setMessage(Message.hitStand);
     }
   }, [gameState]);
 
@@ -106,7 +108,7 @@ const App: React.FC = () => {
     setBet(0);
 
     setGameState(GameState.bet);
-    setMessage(Message.default);
+    setMessage(Message.bet);
     setButtonState({
       hitDisabled: false,
       standDisabled: false,
