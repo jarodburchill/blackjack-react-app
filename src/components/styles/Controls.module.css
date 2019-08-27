@@ -31,6 +31,25 @@
   color: white;
 }
 
+.inputError {
+  width: 1px;
+  flex-grow: 1;
+  margin: 0 0 0 0.5em;
+  font-size: 200%;
+  text-align: right;
+  margin: 5px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: black;
+  color: red;
+}
+
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .button {
   color: white;
   font-weight: bold;
