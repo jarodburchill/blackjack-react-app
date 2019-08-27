@@ -35,11 +35,13 @@
 }
 
 @media screen and (max-width: 992px) {
-
+  .value {
+    font-size: 150%;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .value {
-    font-size: 125%;
+    font-size: 115%;
   }
 }
