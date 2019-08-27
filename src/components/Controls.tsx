@@ -23,7 +23,7 @@ const Controls: React.FC<ControlsProps> = ({ balance, gameState, buttonState, be
       return (
         <div className={styles.controlsContainer}>
           <div className={styles.betContainer}>
-            <p>Amount:</p>
+            <h4>Amount:</h4>
             <input type='number' min='10' max={balance} step='10' value={amount} onChange={amountChange} className={styles.input} />
           </div>
           <button onClick={() => betEvent(amount)} className={styles.button}>Bet</button>

@@ -6,10 +6,11 @@
 
 .betContainer {
   display: flex;
+  align-items: center;
   color: white;
   margin: 0 0.5em;
-  padding: 1em;
-  width: 50%;
+  padding: 0 1em;
+  width: 40%;
   background: black;
   border: 5px solid white;
   border-radius: 15px;
@@ -56,4 +57,22 @@
   color: gray;
   background: rgb(60, 60, 60);
   border: 5px solid gray;
+}
+
+@media screen and (max-width: 992px) {
+  .betContainer {
+    width: 50%;    
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .betContainer {
+    width: 70%;        
+  }
+  .betContainer h4 {
+    font-size: 75%;        
+  }
+  .betContainer input {
+    font-size: 125%;        
+  }
 }
