@@ -6,13 +6,13 @@ Blackjack card game built in React, using TypeScript.
 - Implementing Typescript enums
 ## GitHub Pages:
 ### Link:
-https://jarodburchill.github.io/BlackjackReactApp
+https://jarodburchill.github.io/blackjack-react-app
 ### Preview:
 ![alt text](preview.png "Preview Image")
 ## Installation: 
 ```
-git clone https://github.com/jarodburchill/BlackjackReactApp
-cd BlackjackReactApp
+git clone https://github.com/jarodburchill/blackjack-react-app
+cd blackjack-react-app
 npm install
 npm start
 ```
