@@ -1,6 +1,6 @@
 {
-  "homepage": "https://jarodburchill.github.io/BlackjackReactApp",
-  "name": "blackjack",
+  "homepage": "https://jarodburchill.github.io/blackjack-react-app",
+  "name": "blackjack-react-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
