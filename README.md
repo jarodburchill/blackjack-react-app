@@ -1,4 +1,4 @@
-# BlackjackReactApp
+# Blackjack React App
 Blackjack card game built in React, using TypeScript.
 ## What I Learned:
 - Using TypeScript with React
